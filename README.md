@@ -2,4 +2,4 @@
 
 A Svg-free approach of light/dark theme switch
 
-![preview]("../img/preview.gif")
+![preview]("./img/preview.gif")
