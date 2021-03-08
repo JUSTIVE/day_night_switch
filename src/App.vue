@@ -1,0 +1,100 @@
+<template>
+  <div id="app" :data-theme="theme">
+    <div class="ThemeChanger">
+      <div class="rail" :class="theme"></div>
+      <div class="handle" @click="themeChange">
+        <span class="lighter" :class="theme"></span>
+        <span class="shadow" :class="theme"></span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'App',
+  data() {
+    return {
+      theme: 'light'
+    }
+  },
+  methods: {
+    themeChange() {
+      this.theme = this.theme == 'light' ? 'dark' : 'light'
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+body {
+  margin: 0px;
+}
+#app[data-theme^='dark'] {
+  --sky: hsl(251, 23%, 36%);
+  --star: hsl(42, 100%, 51%);
+  --background: #121212;
+}
+#app[data-theme^='light'] {
+  --sky: hsl(215, 100%, 78%);
+  --star: #ffe186;
+  --background: white;
+}
+#app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  padding: 0px;
+  --font-size2: 32px;
+  --font-size3: 24px;
+  background: var(--background);
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.ThemeChanger {
+  // overflow: hidden;
+}
+.rail {
+  width: 56px;
+  background: var(--sky);
+  height: var(--font-size2);
+  border-radius: var(--font-size2);
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.handle {
+  z-index: 1;
+  cursor: pointer;
+  margin-top: calc((-1 * var(--font-size2)) + 6px);
+  font-size: calc(var(--font-size3) - 4px) !important;
+  border-radius: 36px;
+  overflow: hidden;
+  height: 24px;
+  width: 48px;
+}
+.lighter {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: var(--star);
+  border-radius: 50%;
+  transform: translateX(6px);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  &.dark {
+    transform: translateX(28px);
+  }
+}
+.shadow {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: var(--sky);
+  border-radius: 50%;
+  transform: translateX(-8px) scale(0.1);
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+  &.dark {
+    transform: translate(22px, -3px) scale(1);
+  }
+}
+</style>
